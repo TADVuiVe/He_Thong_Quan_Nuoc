@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Bán Hàng POS</title>
+    <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+    <div class="pos-layout">
+        <aside class="menu-sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <span>👤 <b id="emp-name">Nhân viên</b></span>
+                    <button id="btn-logout" class="btn-logout">Thoát</button>
+                </div>
+                <h2>THỰC ĐƠN</h2>
+                <input type="text" id="search-menu" class="search-input" placeholder="🔍 Nhập tên món để tìm...">
+                <p id="menu-instruction" class="instruction-text">👈 Vui lòng chọn một Bàn để gọi món</p>
+            </div>
+            
+            <div id="menu-list" class="menu-list disabled-menu">
+                </div>
+        </aside>
+
+        <main class="table-main">
+            <header class="top-bar">
+                <h2>Khu Vực Bàn</h2>
+                <button id="btn-add-table" class="btn btn-primary">+ Thêm Bàn Mới</button>
+            </header>
+            
+            <div id="table-grid" class="table-grid">
+                </div>
+        </main>
+    </div>
+    <script src="shop.js"></script>
+</body>
+</html>

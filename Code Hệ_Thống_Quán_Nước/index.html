@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống POS - Đăng Nhập</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box login-box" style="margin: 0 auto;">
+            <h2>ĐĂNG NHẬP HỆ THỐNG</h2>
+            <p class="subtitle">Vui lòng nhập tài khoản để vào ca làm việc</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-user">Tài khoản</label>
+                    <input type="text" id="login-user" required placeholder="Nhập tên tài khoản...">
+                </div>
+                <div class="input-group">
+                    <label for="login-pass">Mật khẩu</label>
+                    <input type="password" id="login-pass" required placeholder="Nhập mật khẩu...">
+                </div>
+                <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+            </form>
+            <p id="login-msg" class="msg"></p>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

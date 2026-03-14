@@ -1,0 +1,414 @@
+/* ==========================================
+   1. BIẾN GLOBAL & RESET CƠ BẢN
+   ========================================== */
+:root {
+    --primary: #4361ee;
+    --bg: #f4f6f9;
+    --text: #2d3748;
+    --card-bg: #fff;
+    --border: #e2e8f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.pos-layout {
+    display: flex;
+    height: 100%;
+}
+
+/* ==========================================
+   2. SIDEBAR THỰC ĐƠN (CỘT TRÁI)
+   ========================================== */
+.menu-sidebar {
+    width: 350px;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.02);
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    background: #fafbfc;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #cbd5e0;
+    font-size: 0.95rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+}
+
+.instruction-text {
+    color: #e53e3e;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.menu-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+.menu-list.disabled-menu {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: 0.2s;
+}
+
+.menu-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.menu-item.out-stock {
+    background: #edf2f7;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.menu-item.out-stock .item-name {
+    text-decoration: line-through;
+    color: #a0aec0;
+}
+
+.menu-price {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* ==========================================
+   3. KHU VỰC BÀN & LƯỚI BÀN (CỘT PHẢI)
+   ========================================== */
+.table-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+}
+
+.top-bar {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    z-index: 5;
+}
+
+.table-grid {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    overflow-y: auto;
+    align-content: start;
+}
+
+/* ==========================================
+   4. THIẾT KẾ THẺ BÀN (TABLE CARDS)
+   ========================================== */
+.table-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    height: 520px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.2s;
+    overflow: hidden;
+}
+
+.table-card.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+    transform: scale(1.02);
+}
+
+.table-header {
+    background: var(--primary);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.table-body {
+    flex: 1;
+    padding: 0 15px;
+    overflow-y: auto;
+    background: #ffffff;
+}
+
+.table-footer {
+    padding: 12px 15px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+}
+
+.total-text {
+    display: flex;
+    justify-content: space-between;
+    color: #e53e3e;
+    font-weight: 800;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+}
+
+.empty-state {
+    text-align: center;
+    color: #a0aec0;
+    margin-top: 60px;
+    font-style: italic;
+}
+
+/* ==========================================
+   5. DANH SÁCH MÓN TRONG BÀN (ORDERS)
+   ========================================== */
+.order-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.order-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.order-top span:first-child {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 0.95rem;
+}
+
+.order-top span:last-child {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.95rem;
+}
+
+.order-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.qty-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.qty-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-width: 15px;
+    text-align: center;
+}
+
+/* ==========================================
+   6. HỆ THỐNG NÚT BẤM (BUTTONS)
+   ========================================== */
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.btn-primary:hover { background: #3a56d4; }
+
+.btn-logout {
+    background: #e53e3e;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-logout:hover { background: #c53030; }
+
+.btn-icon {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.btn-icon:hover { background: rgba(255,255,255,0.4); }
+.btn-icon.del { background: #e53e3e; }
+.btn-icon.del:hover { background: #c53030; }
+
+.qty-btn {
+    width: 26px;
+    height: 26px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.qty-btn:hover {
+    background: #e2e8f0;
+    color: var(--primary);
+}
+
+.btn-pay-item {
+    background: #f6ad55;
+    color: #fff;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-pay-item:hover { background: #dd6b20; }
+
+.btn-success {
+    background: #48bb78;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-success:hover:not(:disabled) { background: #38a169; }
+.btn-success:disabled { background: #a0aec0; cursor: not-allowed; }
+
+.btn-confirm {
+    background: #3182ce;
+    color: white;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-bottom: 6px;
+}
+
+.btn-confirm:hover:not(:disabled) { background: #2b6cb0; }
+.btn-confirm:disabled { background: #a0aec0; cursor: not-allowed; }
+
+/* ==========================================
+   7. NHÃN & HIỆU ỨNG (BADGES & ANIMATION)
+   ========================================== */
+.confirmed-badge {
+    font-size: 0.75rem;
+    background: #c6f6d5;
+    color: #22543d;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+.new-badge {
+    font-size: 0.75rem;
+    background: #fed7d7;
+    color: #c53030;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}

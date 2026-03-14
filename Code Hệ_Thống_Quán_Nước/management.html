@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản Lý POS</title>
+    <link rel="stylesheet" href="management.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>👑 ADMIN POS</h2>
+                <p>Xin chào, <span id="admin-name">Admin</span></p>
+            </div>
+            <ul class="nav-menu">
+                <li class="active" onclick="switchTab('dashboard')">📊 Thống Kê Doanh Thu</li>
+                <li onclick="switchTab('menu-mgr')">🍔 Quản Lý Thực Đơn</li>
+                <li onclick="switchTab('account-mgr')">👥 Quản Lý Nhân Viên</li>
+            </ul>
+            <button id="btn-logout" class="btn-logout">Đăng Xuất</button>
+        </aside>
+
+        <main class="main-content">
+            
+            <section id="dashboard" class="tab-content active">
+                
+                <div class="flex-header">
+                    <h2>Tổng Quan Kinh Doanh</h2>
+                    <div class="date-controls">
+                        <input type="date" id="stat-date" title="Chọn ngày xem thống kê">
+                    </div>
+                </div>
+                
+                <div class="summary-cards">
+                    <div class="card">
+                        <h3>Doanh thu Ngày</h3>
+                        <p class="rev-number"><span id="val-today">0</span>đ</p>
+                    </div>
+                    <div class="card">
+                        <h3>Doanh thu Tuần</h3>
+                        <p class="rev-number"><span id="val-week">0</span>đ</p>
+                    </div>
+                    <div class="card">
+                        <h3>Doanh thu Tháng</h3>
+                        <p class="rev-number"><span id="val-month">0</span>đ</p>
+                    </div>
+                    <div class="card">
+                        <h3>Tổng Doanh thu Năm</h3>
+                        <p class="rev-number"><span id="val-year">0</span>đ</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 20px;">
+                    <div class="chart-container" style="flex: 2;">
+                        <h3>Biểu đồ Doanh thu Trung bình (6 Tháng)</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container" style="flex: 1; overflow-y: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                            <h3 id="top5-title" style="margin: 0;">Top 5 Bán Chạy</h3>
+                            <button class="btn btn-outline-danger" style="padding: 4px 10px; font-size: 12px; border-radius: 4px;" onclick="resetTop5()">Khởi tạo lại bảng xếp hạng</button>
+                        </div>
+                        <ul id="top5-list" class="top5-list"></ul>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="menu-mgr" class="tab-content">
+                <div class="flex-header">
+                    <h2>Kho Sản Phẩm</h2>
+                    <button id="btn-add-item" class="btn btn-primary">+ Thêm Sản Phẩm Mới</button>
+                </div>
+                <div class="table-container">
+                    <table id="menu-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Món</th>
+                                <th>Tên Món</th>
+                                <th>Giá Bán</th>
+                                <th>Trạng Thái</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menu-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="account-mgr" class="tab-content">
+                <h2>Tài Khoản Nhân Viên</h2>
+                <p style="margin-bottom: 20px; color: #666;">Quản lý quyền truy cập và cấp phát tài khoản cho nhân viên thu ngân.</p>
+                
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 15px; color: #4361ee;">+ Cấp Tài Khoản Mới</h3>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <input type="text" id="new-emp-user" placeholder="Tên tài khoản (VD: nhanvien1)" style="flex: 1; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none;">
+                        <input type="password" id="new-emp-pass" placeholder="Mật khẩu" style="flex: 1; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none;">
+                        <select id="new-emp-role" style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none;">
+                            <option value="employee">Nhân Viên Bán Hàng</option>
+                            <option value="admin">Quản Trị Viên</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="createNewAccount()">Tạo Tài Khoản</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="account-table">
+                        <thead>
+                            <tr>
+                                <th>Tên Tài Khoản</th>
+                                <th>Cấp Quyền</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="account-tbody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="management.js"></script>
+</body>
+</html>
